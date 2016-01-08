@@ -2,7 +2,7 @@ package com.blog.webservices.client;
 
 import com.blog.webservices.client.MyServiceStub.GetDataResponse;
 
-public class WebServiceClientTest {
+public class AsynchronousWebServiceClientTest {
 
 	public static void main(String[] args) throws Exception {
 		MyServiceStub serviceStub = new MyServiceStub("http://localhost:8080/axis2/services/MyService");
