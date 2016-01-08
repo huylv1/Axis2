@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://journaldev.com/xsd"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:tns="http://journaldev.com/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ax21="http://bean.journaldev.com/xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	targetNamespace="http://journaldev.com/">
+	<wsdl:types>
+		<xs:schema attributeFormDefault="qualified"
+			elementFormDefault="qualified" targetNamespace="http://bean.journaldev.com/xsd">
+			<xs:complexType name="MyBean">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="id" type="xs:int" />
+					<xs:element minOccurs="0" name="name" nillable="true"
+						type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema xmlns:ax22="http://bean.journaldev.com/xsd"
+			attributeFormDefault="qualified" elementFormDefault="qualified"
+			targetNamespace="http://journaldev.com/xsd">
+			<xs:import namespace="http://bean.journaldev.com/xsd" />
+			<xs:element name="getObjectData">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="myBean" nillable="true"
+							type="ax21:MyBean" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getObjectDataResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="ax21:MyBean" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getData">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="input" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getDataResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="getDataRequest">
+		<wsdl:part name="parameters" element="ns:getData" />
+	</wsdl:message>
+	<wsdl:message name="getDataResponse">
+		<wsdl:part name="parameters" element="ns:getDataResponse" />
+	</wsdl:message>
+	<wsdl:message name="getObjectDataRequest">
+		<wsdl:part name="parameters" element="ns:getObjectData" />
+	</wsdl:message>
+	<wsdl:message name="getObjectDataResponse">
+		<wsdl:part name="parameters" element="ns:getObjectDataResponse" />
+	</wsdl:message>
+	<wsdl:portType name="MyServicePortType">
+		<wsdl:operation name="getData">
+			<wsdl:input message="tns:getDataRequest" wsaw:Action="urn:getData" />
+			<wsdl:output message="tns:getDataResponse" wsaw:Action="urn:getDataResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getObjectData">
+			<wsdl:input message="tns:getObjectDataRequest"
+				wsaw:Action="urn:getObjectData" />
+			<wsdl:output message="tns:getObjectDataResponse"
+				wsaw:Action="urn:getObjectDataResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="MyServiceSoap11Binding" type="tns:MyServicePortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="getData">
+			<soap:operation soapAction="urn:getData" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getObjectData">
+			<soap:operation soapAction="urn:getObjectData" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="MyServiceSoap12Binding" type="tns:MyServicePortType">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="getData">
+			<soap12:operation soapAction="urn:getData" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getObjectData">
+			<soap12:operation soapAction="urn:getObjectData"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="MyServiceHttpBinding" type="tns:MyServicePortType">
+		<http:binding verb="POST" />
+		<wsdl:operation name="getData">
+			<http:operation location="getData" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getObjectData">
+			<http:operation location="getObjectData" />
+			<wsdl:input>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="application/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="MyService">
+		<wsdl:port name="MyServiceHttpSoap11Endpoint" binding="tns:MyServiceSoap11Binding">
+			<soap:address location="http://localhost:8080/axis2/services/MyService" />
+		</wsdl:port>
+		<wsdl:port name="MyServiceHttpSoap12Endpoint" binding="tns:MyServiceSoap12Binding">
+			<soap12:address location="http://localhost:8080/axis2/services/MyService" />
+		</wsdl:port>
+		<wsdl:port name="MyServiceHttpEndpoint" binding="tns:MyServiceHttpBinding">
+			<http:address location="http://localhost:8080/axis2/services/MyService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

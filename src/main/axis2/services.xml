@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service name="MyService" scope="application" targetNamespace="http://journaldev.com/">
+	<description>
+		MyService
+	</description>
+	<messageReceivers>
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+			class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+			class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+	</messageReceivers>
+	<schema schemaNamespace="http://journaldev.com/xsd" />
+	<parameter name="ServiceClass">com.journaldev.ws.MyService</parameter>
+</service>
